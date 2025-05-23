@@ -27,13 +27,13 @@
       const keyword = document.getElementById("keyword").value;
 
       const pythonCode = `
-text = """${text}"""
-keyword = "${keyword}"
+text = """${text.replace(/\\/g, '\\\\').replace(/"""/g, '\\"\\"\\"').replace(/\n/g, '\\n')}"""
+keyword = "${keyword.replace(/"/g, '\\"')}"
 
 lines = text.splitlines()
 filtered = [line for line in lines if keyword.lower() in line.lower()]
-'\n'.join(filtered)
-      `;
+"\\n".join(filtered)
+`;
 
       try {
         const result = await pyodide.runPythonAsync(pythonCode);
