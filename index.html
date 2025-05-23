@@ -27,11 +27,15 @@
       const keyword = document.getElementById("keyword").value;
 
       const pythonCode = `
+import re
 text = """${text.replace(/\\/g, '\\\\').replace(/"""/g, '\\"\\"\\"').replace(/\n/g, '\\n')}"""
 keyword = "${keyword.replace(/"/g, '\\"')}"
 
+def highlight(line, word):
+    return re.sub(f"(?i)({re.escape(word)})", r"<b>\\1</b>", line)
+
 lines = text.splitlines()
-filtered = [line for line in lines if keyword.lower() in line.lower()]
+filtered = [highlight(line, keyword) for line in lines if keyword.lower() in line.lower()]
 "\\n".join(filtered)
 `;
 
