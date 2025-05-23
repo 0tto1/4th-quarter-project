@@ -41,7 +41,7 @@ filtered = [highlight(line, keyword) for line in lines if keyword.lower() in lin
 
       try {
         const result = await pyodide.runPythonAsync(pythonCode);
-        document.getElementById("output").textContent = result || "No matches found.";
+        document.getElementById("output").innerHTML = result || "No matches found.";
       } catch (err) {
         document.getElementById("output").textContent = "Error: " + err;
       }
